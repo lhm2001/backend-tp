@@ -37,7 +37,7 @@ public class CategoriesController {
     @Autowired
     private ConsultationService consultationService;
 
-    private final String FLASK_PREDICT_ENDPOINT = "http://127.0.0.1:5000/predict";
+    private final String FLASK_PREDICT_ENDPOINT = "http://18.116.68.5/predict";
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Category>> fetchAll() {
