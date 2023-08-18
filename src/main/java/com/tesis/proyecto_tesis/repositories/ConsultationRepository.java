@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ConsultationRepository extends JpaRepository<Consultation,Long> {
-    public Optional<List<Consultation>> findConsultationsByCategoryIdCategory(Long categoryId);
+    public List<Consultation> findConsultationsByCategoryIdCategory(Long categoryId);
 
 }

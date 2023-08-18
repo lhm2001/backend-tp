@@ -28,8 +28,7 @@ public class ConsultationServiceImpl implements ConsultationService {
 
     @Override
     public List<Consultation> getAllConsultationsByCategoryIdCategory(Long categoryId) {
-        return consultationRepository.findConsultationsByCategoryIdCategory(categoryId)
-                .orElseThrow(()->new ResourceNotFoundException("Category", "Id", categoryId));
+        return consultationRepository.findConsultationsByCategoryIdCategory(categoryId);
     }
 
     @Override
