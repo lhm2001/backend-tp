@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.client.RestTemplate;
 
-import javax.validation.Valid;
 import java.text.SimpleDateFormat;
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +37,7 @@ public class CategoriesController {
     @Autowired
     private ConsultationService consultationService;
 
-    private final String FLASK_PREDICT_ENDPOINT = "http://18.116.68.5/predict";
+    private final String FLASK_PREDICT_ENDPOINT = "http://18.218.200.224/predict";
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Category>> fetchAll() {
@@ -75,6 +75,12 @@ public class CategoriesController {
         }
 
         try {
+//            // Establecer la fecha y hora actual
+//            Date currentDate = new Date();;
+//
+//            // Asignar la fecha y hora actual a la variable createdDate de la consulta
+//            consultation.setCreatedDate(currentDate);
+
             // Establecer la fecha y hora actual
             Date currentDate = new Date();
 
@@ -83,7 +89,6 @@ public class CategoriesController {
 
             // Formatear la fecha actual a String
             String dateString = sdf.format(currentDate);
-
 
             // Asignar la fecha y hora actual a la variable createdDate de la consulta
             consultation.setCreatedDate(dateString);
@@ -95,7 +100,6 @@ public class CategoriesController {
             // Crear HttpHeaders y establecer el tipo de contenido como "application/json"
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-
 
             // Agregar la autenticación básica a la cabecera "Authorization"
             String username = "usuario"; // Reemplaza por el nombre de usuario de Basic Auth
@@ -114,16 +118,21 @@ public class CategoriesController {
 
             // Acceder a los valores de cada campo en la respuesta JSON
             Boolean assymetryValueObject = (Boolean) responseMap.get("asymmetry");
-            String resultAssymetry = assymetryValueObject.equals(true) ? "Asymmetric" : "Symmetrical";
+            String resultAssymetry = assymetryValueObject.equals(true) ? "Asimétrico" : "Simétrico";
 
             Boolean borderValueObject = (Boolean) responseMap.get("border");
             String resultBorder = borderValueObject.equals(true) ? "Irregular" : "Regular";
 
             Boolean colorValueObject = (Boolean) responseMap.get("color");
-            String resultColor = colorValueObject.equals(true) ? "Heterogeneous" : "Homogeneous";
+            String resultColor = colorValueObject.equals(true) ? "Heterogéneo" : "Homogéneo";
 
-            Double diameterValueObject = (Double) responseMap.get("diameter");
-            String resultDiameter = diameterValueObject.toString();
+//            Double diameterValueObject = (Double) responseMap.get("diameter");
+//            String resultDiameter = diameterValueObject.toString();
+
+            String resultDiameter = "El diámetro puede medir manualmente. En caso de que el diámetro sea mayor a 6mm, se debe dirigir a un especialista.";
+
+            String photoValueObject = (String) responseMap.get("photo");
+            String photo = photoValueObject.toString();
 
             Integer predictValueObject = (Integer) responseMap.get("prediction");
             Boolean predict = (predictValueObject != null && predictValueObject.equals(1)) ? true : false;
@@ -132,7 +141,8 @@ public class CategoriesController {
                     .setResultAssymetry(resultAssymetry)
                     .setResultBorder(resultBorder)
                     .setResultColor(resultColor)
-                    .setResultDiameter(resultDiameter);
+                    .setResultDiameter(resultDiameter)
+                    .setPhoto(photo);
 
 
             Consultation consultationDB = consultationService.createConsultation(consultation, categoryId);
