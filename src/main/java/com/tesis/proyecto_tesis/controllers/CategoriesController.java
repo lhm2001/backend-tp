@@ -118,18 +118,18 @@ public class CategoriesController {
 
             // Acceder a los valores de cada campo en la respuesta JSON
             Boolean assymetryValueObject = (Boolean) responseMap.get("asymmetry");
-            String resultAssymetry = assymetryValueObject.equals(true) ? "Asimétrico" : "Simétrico";
+            String resultAssymetry = assymetryValueObject.equals(true) ? "Asymmetric" : "Symmetrical";
 
             Boolean borderValueObject = (Boolean) responseMap.get("border");
             String resultBorder = borderValueObject.equals(true) ? "Irregular" : "Regular";
 
             Boolean colorValueObject = (Boolean) responseMap.get("color");
-            String resultColor = colorValueObject.equals(true) ? "Heterogéneo" : "Homogéneo";
+            String resultColor = colorValueObject.equals(true) ? "Heterogeneous" : "Homogeneous";
 
 //            Double diameterValueObject = (Double) responseMap.get("diameter");
 //            String resultDiameter = diameterValueObject.toString();
 
-            String resultDiameter = "El diámetro puede medir manualmente. En caso de que el diámetro sea mayor a 6mm, se debe dirigir a un especialista.";
+            String resultDiameter = "The diameter can measure manually. If the diameter is greater than 6mm, a specialist should be consulted.";
 
             String photoValueObject = (String) responseMap.get("photo");
             String photo = photoValueObject.toString();
